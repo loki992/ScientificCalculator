@@ -31,6 +31,9 @@ public class Mechanism implements ActionListener {
     }
 
     void numberButtonClicked(ActionEvent actionEvent) {
+        if (wasEqualsButtonAlreadyClicked) {
+            resetButtonClicked();
+        }
         inputCache += actionEvent.getActionCommand();
         currentNumberCache += actionEvent.getActionCommand();
         changeFieldInputValue();
@@ -39,10 +42,10 @@ public class Mechanism implements ActionListener {
     void operationButtonClicked(ActionEvent actionEvent) {
         if (wasEqualsButtonAlreadyClicked) {
             inputCache += listOfNumbers.get(0);
-            currentNumberCache += listOfNumbers.get(0);
             textFieldResult.setText("");
-            textFieldInput.setText("");
             textFieldInputValue = "";
+            textFieldInput.setText("");
+            wasEqualsButtonAlreadyClicked = false;
         }
         inputCache += actionEvent.getActionCommand();
         if (!currentNumberCache.isEmpty()) {
@@ -68,7 +71,10 @@ public class Mechanism implements ActionListener {
         textFieldResult.setText("");
         textFieldInputValue = "";
         currentNumberCache = "";
+        listOfNumbers.clear();
+        listOfSymbols.clear();
         result = 0.0;
+        wasEqualsButtonAlreadyClicked = false;
 
     }
 
